@@ -1,0 +1,18 @@
+#spring.application.name=slicemagic
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb  # Use jdbc:h2:file:~/testdb for a file-based H2 database
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+  h2:
+    console:
+      enabled: true          # Enables the H2 console at /h2-console (optional for debugging)
+  jpa:
+    hibernate:
+      ddl-auto: update       # Options: create, update, validate, or none
+    show-sql: true           # Enables logging of SQL statements
+    properties:
+      hibernate:
+        format_sql: true     # Formats SQL output to improve readability
