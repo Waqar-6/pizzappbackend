@@ -16,3 +16,13 @@ spring:
     properties:
       hibernate:
         format_sql: true     # Formats SQL output to improve readability
+
+
+logging:
+  level:
+    root: INFO         # Adjust the log level if needed (INFO, DEBUG, etc.)
+  file:
+    name: C:\Users\waqar\OneDrive\Desktop\W-Farooq-Group\pizza-app\backend\slicemagic\logs/pizza.log
+    append: false  # Clears the log file on each startup
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"  # Optional: Customize log format for file
