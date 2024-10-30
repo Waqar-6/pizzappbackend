@@ -8,26 +8,37 @@ import com.w_farooq_group.slicemagic.mapper.PizzaMapper;
 import com.w_farooq_group.slicemagic.repository.PizzaRepository;
 import com.w_farooq_group.slicemagic.service.IPizzaService;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class PizzaServiceImpl implements IPizzaService {
 
+    private static final Logger log = LoggerFactory.getLogger(PizzaServiceImpl.class);
     private final PizzaRepository pizzaRepository;
+
 
     /**
      * @param pizzaDto - PizzaDto Object
      */
     @Override
     public void createPizza(PizzaDto pizzaDto) {
+        log.info("pizza service createPizza invoked at: {}", LocalDateTime.now());
         boolean pizzaExists = pizzaRepository.existsByName(pizzaDto.getName());
-        if (pizzaExists)
+        if (pizzaExists) {
+            log.error("pizza already exists exception thrown");
             throw new PizzaAlreadyExistsException("Pizza with the name: " + pizzaDto.getName() + " already exists");
+        }
+
         Pizza newPizza = PizzaMapper.mapToPizza(pizzaDto, new Pizza());
         pizzaRepository.save(newPizza);
+        log.info("pizza saved to pizza repository");
+        log.info("create pizza method finished executing at: {}", LocalDateTime.now());
     }
 
     /**
